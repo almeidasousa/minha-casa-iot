@@ -6,9 +6,7 @@
 <title>Minha Casa IoT</title>
 
 <style>
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -27,9 +25,7 @@ header {
   margin-bottom: 25px;
 }
 
-header h1 {
-  margin: 0 0 10px;
-}
+header h1 { margin: 0 0 10px; }
 
 .painel {
   display: grid;
@@ -53,14 +49,9 @@ header h1 {
   background: #f0fff8;
 }
 
-.icone {
-  font-size: 38px;
-  margin-bottom: 10px;
-}
+.icone { font-size: 38px; margin-bottom: 10px; }
 
-h2 {
-  font-size: 21px;
-}
+h2 { font-size: 21px; }
 
 .estado {
   color: #53728b;
@@ -79,9 +70,7 @@ button {
   font-size: 14px;
 }
 
-button:hover {
-  background: #0867aa;
-}
+button:hover { background: #0867aa; }
 
 .temperatura {
   font-size: 32px;
@@ -151,63 +140,84 @@ footer {
 </footer>
 
 <script>
-let estados = {
+const estadoInicial = {
   luz: false,
   ventilador: false,
   porta: false,
-  alarme: false
+  alarme: false,
+  temperatura: 25
 };
 
-let temperatura = 25;
+let dados = { ...estadoInicial };
+
+try {
+  const salvo = localStorage.getItem("minhaCasaIoT");
+
+  if (salvo) {
+    const carregado = JSON.parse(salvo);
+
+    if (carregado && typeof carregado === "object") {
+      dados = {
+        luz: typeof carregado.luz === "boolean" ? carregado.luz : false,
+        ventilador: typeof carregado.ventilador === "boolean" ? carregado.ventilador : false,
+        porta: typeof carregado.porta === "boolean" ? carregado.porta : false,
+        alarme: typeof carregado.alarme === "boolean" ? carregado.alarme : false,
+        temperatura: Number.isFinite(carregado.temperatura)
+          ? Math.max(10, Math.min(40, carregado.temperatura))
+          : 25
+      };
+    }
+  }
+} catch (erro) {
+  dados = { ...estadoInicial };
+}
+
+function salvar() {
+  try {
+    localStorage.setItem("minhaCasaIoT", JSON.stringify(dados));
+  } catch (erro) {
+    console.log("Não foi possível salvar neste navegador.");
+  }
+}
+
+function atualizarTela() {
+  document.getElementById("estadoLuz").textContent =
+    dados.luz ? "Ligada" : "Desligada";
+
+  document.getElementById("estadoVentilador").textContent =
+    dados.ventilador ? "Ligado" : "Desligado";
+
+  document.getElementById("estadoPorta").textContent =
+    dados.porta ? "Aberta" : "Fechada";
+
+  document.getElementById("estadoAlarme").textContent =
+    dados.alarme ? "Ativado" : "Desativado";
+
+  document.getElementById("graus").textContent = dados.temperatura;
+
+  document.getElementById("cartaoLuz").classList.toggle("ativo", dados.luz);
+  document.getElementById("cartaoVentilador").classList.toggle("ativo", dados.ventilador);
+  document.getElementById("cartaoPorta").classList.toggle("ativo", dados.porta);
+  document.getElementById("cartaoAlarme").classList.toggle("ativo", dados.alarme);
+}
 
 function alternar(item) {
-  estados[item] = !estados[item];
-
-  const configuracoes = {
-    luz: {
-      elemento: "estadoLuz",
-      ligado: "Ligada",
-      desligado: "Desligada",
-      cartao: "cartaoLuz"
-    },
-    ventilador: {
-      elemento: "estadoVentilador",
-      ligado: "Ligado",
-      desligado: "Desligado",
-      cartao: "cartaoVentilador"
-    },
-    porta: {
-      elemento: "estadoPorta",
-      ligado: "Aberta",
-      desligado: "Fechada",
-      cartao: "cartaoPorta"
-    },
-    alarme: {
-      elemento: "estadoAlarme",
-      ligado: "Ativado",
-      desligado: "Desativado",
-      cartao: "cartaoAlarme"
-    }
-  };
-
-  const config = configuracoes[item];
-
-  document.getElementById(config.elemento).textContent =
-    estados[item] ? config.ligado : config.desligado;
-
-  document.getElementById(config.cartao).classList.toggle(
-    "ativo", estados[item]
-  );
+  dados[item] = !dados[item];
+  atualizarTela();
+  salvar();
 }
 
 function mudarTemperatura(valor) {
-  temperatura += valor;
+  dados.temperatura += valor;
 
-  if (temperatura < 10) temperatura = 10;
-  if (temperatura > 40) temperatura = 40;
+  if (dados.temperatura < 10) dados.temperatura = 10;
+  if (dados.temperatura > 40) dados.temperatura = 40;
 
-  document.getElementById("graus").textContent = temperatura;
+  atualizarTela();
+  salvar();
 }
+
+atualizarTela();
 </script>
 
 </body>
