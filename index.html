@@ -27,6 +27,49 @@ header {
 
 header h1 { margin: 0 0 10px; }
 
+.login {
+  max-width: 400px;
+  margin: 45px auto;
+  padding: 28px 22px;
+  background: white;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 4px 15px #00000012;
+}
+
+.login .icone { font-size: 48px; }
+
+.login input {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border: 1px solid #cbd8e3;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+button {
+  background: #1685d1;
+  color: white;
+  border: none;
+  padding: 12px 17px;
+  margin: 5px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+button:hover { background: #0867aa; }
+
+.login button { width: 100%; margin-top: 12px; }
+
+#mensagemLogin {
+  color: #b42318;
+  font-size: 14px;
+}
+
+#painelCasa { display: none; }
+
 .relogio, .resumo {
   max-width: 1000px;
   margin: 0 auto 18px;
@@ -94,19 +137,6 @@ h2 { font-size: 21px; }
   margin: 15px 0;
 }
 
-button {
-  background: #1685d1;
-  color: white;
-  border: none;
-  padding: 11px 17px;
-  margin: 4px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-button:hover { background: #0867aa; }
-
 .temperatura {
   font-size: 32px;
   font-weight: bold;
@@ -128,57 +158,86 @@ footer {
   <p>Painel de controle da casa inteligente</p>
 </header>
 
-<section class="relogio">
-  <div id="hora">--:--:--</div>
-  <p id="data">Carregando data...</p>
+<section class="login" id="telaLogin">
+  <div class="icone">🔐</div>
+  <h2>Bem-vindo!</h2>
+  <p>Entre para acessar sua casa inteligente.</p>
+
+  <form id="formLogin">
+    <input id="usuario" type="text"
+      placeholder="Nome de usuário" autocomplete="username" required>
+
+    <input id="senha" type="password"
+      placeholder="Senha de demonstração" autocomplete="current-password" required>
+
+    <button type="submit">Entrar</button>
+  </form>
+
+  <p id="mensagemLogin"></p>
+  <p style="font-size:13px;color:#53728b">
+    Demonstração escolar: use usuário <b>grazy</b> e senha <b>1234</b>.
+  </p>
 </section>
 
-<section class="resumo">
-  <h2>📊 Estado geral da casa</h2>
-  <p id="estadoGeral">🔵 Todos os controles estão desligados</p>
-  <p id="quantidadeAtivos">0 controles ativados</p>
-</section>
+<div id="painelCasa">
 
-<main class="painel">
+  <section class="relogio">
+    <div id="hora">--:--:--</div>
+    <p id="data">Carregando data...</p>
+  </section>
 
-<section class="cartao" id="cartaoLuz">
-  <div class="icone">💡</div>
-  <h2>Luz da sala</h2>
-  <p class="estado" id="estadoLuz">Desligada</p>
-  <button onclick="alternar('luz')">Ligar / Desligar</button>
-</section>
+  <section class="resumo">
+    <h2>📊 Estado geral da casa</h2>
+    <p id="estadoGeral">🔵 Todos os controles estão desligados</p>
+    <p id="quantidadeAtivos">0 controles ativados</p>
+  </section>
 
-<section class="cartao" id="cartaoVentilador">
-  <div class="icone">🌀</div>
-  <h2>Ventilador</h2>
-  <p class="estado" id="estadoVentilador">Desligado</p>
-  <button onclick="alternar('ventilador')">Ligar / Desligar</button>
-</section>
+  <main class="painel">
 
-<section class="cartao">
-  <div class="icone">🌡️</div>
-  <h2>Temperatura</h2>
-  <p class="temperatura"><span id="graus">25</span> °C</p>
-  <button onclick="mudarTemperatura(-1)">− Diminuir</button>
-  <button onclick="mudarTemperatura(1)">+ Aumentar</button>
-  <p class="estado">Temperatura simulada</p>
-</section>
+    <section class="cartao" id="cartaoLuz">
+      <div class="icone">💡</div>
+      <h2>Luz da sala</h2>
+      <p class="estado" id="estadoLuz">Desligada</p>
+      <button onclick="alternar('luz')">Ligar / Desligar</button>
+    </section>
 
-<section class="cartao" id="cartaoPorta">
-  <div class="icone">🚪</div>
-  <h2>Porta da casa</h2>
-  <p class="estado" id="estadoPorta">Fechada</p>
-  <button onclick="alternar('porta')">Abrir / Fechar</button>
-</section>
+    <section class="cartao" id="cartaoVentilador">
+      <div class="icone">🌀</div>
+      <h2>Ventilador</h2>
+      <p class="estado" id="estadoVentilador">Desligado</p>
+      <button onclick="alternar('ventilador')">Ligar / Desligar</button>
+    </section>
 
-<section class="cartao" id="cartaoAlarme">
-  <div class="icone">🚨</div>
-  <h2>Alarme</h2>
-  <p class="estado" id="estadoAlarme">Desativado</p>
-  <button onclick="alternar('alarme')">Ativar / Desativar</button>
-</section>
+    <section class="cartao">
+      <div class="icone">🌡️</div>
+      <h2>Temperatura</h2>
+      <p class="temperatura"><span id="graus">25</span> °C</p>
+      <button onclick="mudarTemperatura(-1)">− Diminuir</button>
+      <button onclick="mudarTemperatura(1)">+ Aumentar</button>
+      <p class="estado">Temperatura simulada</p>
+    </section>
 
-</main>
+    <section class="cartao" id="cartaoPorta">
+      <div class="icone">🚪</div>
+      <h2>Porta da casa</h2>
+      <p class="estado" id="estadoPorta">Fechada</p>
+      <button onclick="alternar('porta')">Abrir / Fechar</button>
+    </section>
+
+    <section class="cartao" id="cartaoAlarme">
+      <div class="icone">🚨</div>
+      <h2>Alarme</h2>
+      <p class="estado" id="estadoAlarme">Desativado</p>
+      <button onclick="alternar('alarme')">Ativar / Desativar</button>
+    </section>
+
+  </main>
+
+  <div style="text-align:center;margin-top:20px">
+    <button onclick="sair()">Sair da conta</button>
+  </div>
+
+</div>
 
 <footer>
   <p>Projeto escolar de Internet das Coisas (IoT)</p>
@@ -198,7 +257,6 @@ let dados = { ...estadoInicial };
 
 try {
   const salvo = localStorage.getItem("minhaCasaIoT");
-
   if (salvo) {
     const carregado = JSON.parse(salvo);
 
@@ -246,14 +304,10 @@ function atualizarTela() {
   document.getElementById("cartaoPorta").classList.toggle("ativo", dados.porta);
   document.getElementById("cartaoAlarme").classList.toggle("ativo", dados.alarme);
 
-  const ativos = [
-    dados.luz,
-    dados.ventilador,
-    dados.alarme
-  ].filter(Boolean).length;
+  const ativos = [dados.luz, dados.ventilador, dados.alarme]
+    .filter(Boolean).length;
 
   const geral = document.getElementById("estadoGeral");
-  const quantidade = document.getElementById("quantidadeAtivos");
 
   if (ativos > 0 || dados.porta) {
     geral.textContent = "🟢 Há controles ativados";
@@ -263,9 +317,8 @@ function atualizarTela() {
     geral.classList.remove("ativo");
   }
 
-  quantidade.textContent = ativos + (ativos === 1
-    ? " controle ativado"
-    : " controles ativados");
+  document.getElementById("quantidadeAtivos").textContent =
+    ativos + (ativos === 1 ? " controle ativado" : " controles ativados");
 }
 
 function alternar(item) {
@@ -275,11 +328,7 @@ function alternar(item) {
 }
 
 function mudarTemperatura(valor) {
-  dados.temperatura += valor;
-
-  if (dados.temperatura < 10) dados.temperatura = 10;
-  if (dados.temperatura > 40) dados.temperatura = 40;
-
+  dados.temperatura = Math.max(10, Math.min(40, dados.temperatura + valor));
   atualizarTela();
   salvar();
 }
@@ -297,6 +346,30 @@ function atualizarRelogio() {
       month: "long",
       year: "numeric"
     });
+}
+
+document.getElementById("formLogin").addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  const usuario = document.getElementById("usuario").value.trim();
+  const senha = document.getElementById("senha").value;
+
+  if (usuario === "grazy" && senha === "1234") {
+    document.getElementById("telaLogin").style.display = "none";
+    document.getElementById("painelCasa").style.display = "block";
+    document.getElementById("mensagemLogin").textContent = "";
+    atualizarTela();
+    atualizarRelogio();
+  } else {
+    document.getElementById("mensagemLogin").textContent =
+      "Usuário ou senha incorretos. Tente novamente.";
+  }
+});
+
+function sair() {
+  document.getElementById("painelCasa").style.display = "none";
+  document.getElementById("telaLogin").style.display = "block";
+  document.getElementById("senha").value = "";
 }
 
 atualizarTela();
