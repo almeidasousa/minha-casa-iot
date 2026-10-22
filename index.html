@@ -1,93 +1,128 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minha Casa IoT</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #eef4f8;
-            color: #243447;
-            text-align: center;
-            padding: 20px;
-        }
-
-        h1 {
-            color: #176b87;
-        }
-
-        .card {
-            background: white;
-            padding: 20px;
-            margin: 15px auto;
-            max-width: 350px;
-            border-radius: 15px;
-            box-shadow: 0 3px 10px #0001;
-        }
-
-        button {
-            background: #176b87;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        button:hover {
-            background: #104e63;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minha Casa IoT</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #eef4f8;
+    color: #243447;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+}
+header {
+    background: #176b87;
+    color: white;
+    padding: 20px;
+    border-radius: 15px;
+}
+.painel {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    max-width: 900px;
+    margin: 24px auto;
+}
+.card {
+    background: white;
+    padding: 22px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px #00000010;
+}
+.icone { font-size: 38px; }
+.estado {
+    font-weight: bold;
+    color: #176b87;
+}
+button {
+    background: #176b87;
+    color: white;
+    border: none;
+    border-radius: 9px;
+    padding: 12px 16px;
+    cursor: pointer;
+    font-size: 15px;
+}
+button:hover { background: #104e63; }
+footer {
+    margin-top: 20px;
+    color: #526575;
+}
+</style>
 </head>
 <body>
 
+<header>
     <h1>🏡 Minha Casa IoT</h1>
-    <p>Controle inteligente da sua casa</p>
+    <p>Painel de controle da casa inteligente</p>
+</header>
 
-    <div class="card">
-        <h2>💡 Luz da sala</h2>
-        <p id="luz">Desligada</p>
-        <button onclick="alternar('luz')">Ligar / Desligar</button>
-    </div>
+<main class="painel">
 
-    <div class="card">
-        <h2>🌀 Ventilador</h2>
-        <p id="ventilador">Desligado</p>
-        <button onclick="alternar('ventilador')">Ligar / Desligar</button>
-    </div>
+<section class="card">
+    <div class="icone">💡</div>
+    <h2>Luz da sala</h2>
+    <p class="estado" id="luz">Desligada</p>
+    <button onclick="alternar('luz','Desligada','Ligada')">
+        Ligar / Desligar
+    </button>
+</section>
 
-    <div class="card">
-        <h2>🌡️ Temperatura</h2>
-        <p>Temperatura simulada: 25 °C</p>
-    </div>
+<section class="card">
+    <div class="icone">🌀</div>
+    <h2>Ventilador</h2>
+    <p class="estado" id="ventilador">Desligado</p>
+    <button onclick="alternar('ventilador','Desligado','Ligado')">
+        Ligar / Desligar
+    </button>
+</section>
 
-    <div class="card">
-        <h2>🚪 Porta da casa</h2>
-        <p id="porta">Fechada</p>
-        <button onclick="alternar('porta')">Abrir / Fechar</button>
-    </div>
+<section class="card">
+    <div class="icone">🌡️</div>
+    <h2>Temperatura</h2>
+    <p class="estado">25 °C</p>
+    <p>Temperatura simulada</p>
+</section>
 
-    <script>
-        function alternar(id) {
-            const elemento = document.getElementById(id);
+<section class="card">
+    <div class="icone">🚪</div>
+    <h2>Porta da casa</h2>
+    <p class="estado" id="porta">Fechada</p>
+    <button onclick="alternar('porta','Fechada','Aberta')">
+        Abrir / Fechar
+    </button>
+</section>
 
-            if (id === 'luz') {
-                elemento.textContent =
-                    elemento.textContent === 'Desligada'
-                    ? 'Ligada' : 'Desligada';
-            } else if (id === 'ventilador') {
-                elemento.textContent =
-                    elemento.textContent === 'Desligado'
-                    ? 'Ligado' : 'Desligado';
-            } else if (id === 'porta') {
-                elemento.textContent =
-                    elemento.textContent === 'Fechada'
-                    ? 'Aberta' : 'Fechada';
-            }
-        }
-    </script>
+<section class="card">
+    <div class="icone">🚨</div>
+    <h2>Alarme</h2>
+    <p class="estado" id="alarme">Desativado</p>
+    <button onclick="alternar('alarme','Desativado','Ativado')">
+        Ativar / Desativar
+    </button>
+</section>
+
+</main>
+
+<footer>
+    <p>Projeto acadêmico de Internet das Coisas (IoT)</p>
+    <p>Minha Casa IoT © 2026</p>
+</footer>
+
+<script>
+function alternar(id, estadoInicial, estadoAlternativo) {
+    const elemento = document.getElementById(id);
+
+    if (elemento.textContent === estadoInicial) {
+        elemento.textContent = estadoAlternativo;
+    } else {
+        elemento.textContent = estadoInicial;
+    }
+}
+</script>
 
 </body>
 </html>
