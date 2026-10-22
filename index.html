@@ -27,9 +27,9 @@ header {
 
 header h1 { margin: 0 0 10px; }
 
-.relogio {
+.relogio, .resumo {
   max-width: 1000px;
-  margin: 0 auto 22px;
+  margin: 0 auto 18px;
   padding: 18px;
   text-align: center;
   background: white;
@@ -47,6 +47,20 @@ header h1 { margin: 0 0 10px; }
   color: #53728b;
   margin-bottom: 0;
   text-transform: capitalize;
+}
+
+#estadoGeral {
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 20px;
+  background: #e5f2ff;
+  color: #0867aa;
+  font-weight: bold;
+}
+
+#estadoGeral.ativo {
+  background: #e4f8ed;
+  color: #16885b;
 }
 
 .painel {
@@ -117,6 +131,12 @@ footer {
 <section class="relogio">
   <div id="hora">--:--:--</div>
   <p id="data">Carregando data...</p>
+</section>
+
+<section class="resumo">
+  <h2>📊 Estado geral da casa</h2>
+  <p id="estadoGeral">🔵 Todos os controles estão desligados</p>
+  <p id="quantidadeAtivos">0 controles ativados</p>
 </section>
 
 <main class="painel">
@@ -225,6 +245,27 @@ function atualizarTela() {
   document.getElementById("cartaoVentilador").classList.toggle("ativo", dados.ventilador);
   document.getElementById("cartaoPorta").classList.toggle("ativo", dados.porta);
   document.getElementById("cartaoAlarme").classList.toggle("ativo", dados.alarme);
+
+  const ativos = [
+    dados.luz,
+    dados.ventilador,
+    dados.alarme
+  ].filter(Boolean).length;
+
+  const geral = document.getElementById("estadoGeral");
+  const quantidade = document.getElementById("quantidadeAtivos");
+
+  if (ativos > 0 || dados.porta) {
+    geral.textContent = "🟢 Há controles ativados";
+    geral.classList.add("ativo");
+  } else {
+    geral.textContent = "🔵 Todos os controles estão desligados";
+    geral.classList.remove("ativo");
+  }
+
+  quantidade.textContent = ativos + (ativos === 1
+    ? " controle ativado"
+    : " controles ativados");
 }
 
 function alternar(item) {
