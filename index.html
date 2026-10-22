@@ -6,30 +6,26 @@
 <title>Minha Casa IoT</title>
 
 <style>
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
   padding: 20px;
   font-family: Arial, sans-serif;
-  background: #eef4f8;
-  color: #243447;
+  background: #edf2f7;
+  color: #142b49;
 }
 
 header {
-  background: #1685d1;
+  background: #142b49;
   color: white;
   text-align: center;
-  padding: 25px 10px;
-  border-radius: 15px;
+  padding: 30px 15px;
+  border-radius: 18px;
   margin-bottom: 25px;
 }
 
-header h1 {
-  margin: 0 0 10px;
-}
+header h1 { margin-top: 0; }
 
 .painel {
   display: grid;
@@ -41,58 +37,55 @@ header h1 {
 
 .cartao {
   background: white;
-  border-radius: 15px;
+  border-radius: 16px;
   padding: 24px 15px;
   text-align: center;
-  box-shadow: 0 4px 12px #00000012;
+  box-shadow: 0 5px 16px #142b4912;
   border: 2px solid transparent;
+  transition: 0.2s;
 }
 
 .cartao.ativo {
-  border-color: #21a675;
-  background: #f0fff8;
+  border-color: #16885b;
+  background: #f0fff7;
 }
 
 .icone {
-  font-size: 38px;
+  font-size: 40px;
   margin-bottom: 10px;
 }
 
-h2 {
-  font-size: 21px;
-}
+h2 { font-size: 21px; }
 
 .estado {
-  color: #53728b;
+  color: #526579;
   font-weight: bold;
   margin: 15px 0;
 }
 
 button {
-  background: #1685d1;
+  background: #16885b;
   color: white;
   border: none;
-  padding: 11px 17px;
+  padding: 12px 16px;
   margin: 4px;
-  border-radius: 8px;
+  border-radius: 9px;
   cursor: pointer;
   font-size: 14px;
 }
 
-button:hover {
-  background: #0867aa;
-}
+button:hover { background: #116b48; }
 
 .temperatura {
   font-size: 32px;
   font-weight: bold;
-  color: #1685d1;
+  color: #16885b;
 }
 
 footer {
   text-align: center;
-  margin-top: 28px;
-  color: #607789;
+  margin-top: 30px;
+  color: #526579;
 }
 </style>
 </head>
@@ -101,7 +94,7 @@ footer {
 
 <header>
   <h1>🏡 Minha Casa IoT</h1>
-  <p>Painel de controle da casa inteligente</p>
+  <p>PAINEL DE CONTROLE DA CASA INTELIGENTE</p>
 </header>
 
 <main class="painel">
@@ -130,7 +123,7 @@ footer {
   </section>
 
   <section class="cartao" id="cartaoPorta">
-    <div class="icone" id="iconePorta">🚪</div>
+    <div class="icone">🚪</div>
     <h2>Porta da casa</h2>
     <p class="estado" id="estadoPorta">Fechada</p>
     <button onclick="alternar('porta')">Abrir / Fechar</button>
@@ -163,46 +156,40 @@ let temperatura = 25;
 function alternar(item) {
   estados[item] = !estados[item];
 
-  if (item === "luz") {
-    document.getElementById("estadoLuz").textContent =
-      estados.luz ? "Ligada" : "Desligada";
-  }
-
-  if (item === "ventilador") {
-    document.getElementById("estadoVentilador").textContent =
-      estados.ventilador ? "Ligado" : "Desligado";
-  }
-
-  if (item === "porta") {
-    document.getElementById("estadoPorta").textContent =
-      estados.porta ? "Aberta" : "Fechada";
-
-    document.getElementById("iconePorta").textContent =
-      estados.porta ? "🚪" : "🚪";
-  }
-
-  if (item === "alarme") {
-    document.getElementById("estadoAlarme").textContent =
-      estados.alarme ? "Ativado" : "Desativado";
-  }
-
-  const nomes = {
-    luz: "Luz",
-    ventilador: "Ventilador",
-    porta: "Porta",
-    alarme: "Alarme"
+  const configuracoes = {
+    luz: {
+      elemento: "estadoLuz",
+      ligado: "Ligada",
+      desligado: "Desligada",
+      cartao: "cartaoLuz"
+    },
+    ventilador: {
+      elemento: "estadoVentilador",
+      ligado: "Ligado",
+      desligado: "Desligado",
+      cartao: "cartaoVentilador"
+    },
+    porta: {
+      elemento: "estadoPorta",
+      ligado: "Aberta",
+      desligado: "Fechada",
+      cartao: "cartaoPorta"
+    },
+    alarme: {
+      elemento: "estadoAlarme",
+      ligado: "Ativado",
+      desligado: "Desativado",
+      cartao: "cartaoAlarme"
+    }
   };
 
-  const cartoes = {
-    luz: "cartaoLuz",
-    ventilador: "cartaoVentilador",
-    porta: "cartaoPorta",
-    alarme: "cartaoAlarme"
-  };
+  const config = configuracoes[item];
 
-  document.getElementById(cartoes[item]).classList.toggle(
-    "ativo",
-    estados[item]
+  document.getElementById(config.elemento).textContent =
+    estados[item] ? config.ligado : config.desligado;
+
+  document.getElementById(config.cartao).classList.toggle(
+    "ativo", estados[item]
   );
 }
 
