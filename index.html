@@ -6,26 +6,30 @@
 <title>Minha Casa IoT</title>
 
 <style>
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
   padding: 20px;
   font-family: Arial, sans-serif;
-  background: #edf2f7;
-  color: #142b49;
+  background: #eef4f8;
+  color: #243447;
 }
 
 header {
-  background: #142b49;
+  background: #1685d1;
   color: white;
   text-align: center;
-  padding: 30px 15px;
-  border-radius: 18px;
+  padding: 25px 10px;
+  border-radius: 15px;
   margin-bottom: 25px;
 }
 
-header h1 { margin-top: 0; }
+header h1 {
+  margin: 0 0 10px;
+}
 
 .painel {
   display: grid;
@@ -37,55 +41,58 @@ header h1 { margin-top: 0; }
 
 .cartao {
   background: white;
-  border-radius: 16px;
+  border-radius: 15px;
   padding: 24px 15px;
   text-align: center;
-  box-shadow: 0 5px 16px #142b4912;
+  box-shadow: 0 4px 12px #00000012;
   border: 2px solid transparent;
-  transition: 0.2s;
 }
 
 .cartao.ativo {
-  border-color: #16885b;
-  background: #f0fff7;
+  border-color: #21a675;
+  background: #f0fff8;
 }
 
 .icone {
-  font-size: 40px;
+  font-size: 38px;
   margin-bottom: 10px;
 }
 
-h2 { font-size: 21px; }
+h2 {
+  font-size: 21px;
+}
 
 .estado {
-  color: #526579;
+  color: #53728b;
   font-weight: bold;
   margin: 15px 0;
 }
 
 button {
-  background: #16885b;
+  background: #1685d1;
   color: white;
   border: none;
-  padding: 12px 16px;
+  padding: 11px 17px;
   margin: 4px;
-  border-radius: 9px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 14px;
 }
 
-button:hover { background: #116b48; }
+button:hover {
+  background: #0867aa;
+}
 
 .temperatura {
   font-size: 32px;
   font-weight: bold;
-  color: #16885b;
+  color: #1685d1;
 }
 
 footer {
   text-align: center;
-  margin-top: 30px;
-  color: #526579;
+  margin-top: 28px;
+  color: #607789;
 }
 </style>
 </head>
@@ -94,47 +101,47 @@ footer {
 
 <header>
   <h1>🏡 Minha Casa IoT</h1>
-  <p>PAINEL DE CONTROLE DA CASA INTELIGENTE</p>
+  <p>Painel de controle da casa inteligente</p>
 </header>
 
 <main class="painel">
 
-  <section class="cartao" id="cartaoLuz">
-    <div class="icone">💡</div>
-    <h2>Luz da sala</h2>
-    <p class="estado" id="estadoLuz">Desligada</p>
-    <button onclick="alternar('luz')">Ligar / Desligar</button>
-  </section>
+<section class="cartao" id="cartaoLuz">
+  <div class="icone">💡</div>
+  <h2>Luz da sala</h2>
+  <p class="estado" id="estadoLuz">Desligada</p>
+  <button onclick="alternar('luz')">Ligar / Desligar</button>
+</section>
 
-  <section class="cartao" id="cartaoVentilador">
-    <div class="icone">🌀</div>
-    <h2>Ventilador</h2>
-    <p class="estado" id="estadoVentilador">Desligado</p>
-    <button onclick="alternar('ventilador')">Ligar / Desligar</button>
-  </section>
+<section class="cartao" id="cartaoVentilador">
+  <div class="icone">🌀</div>
+  <h2>Ventilador</h2>
+  <p class="estado" id="estadoVentilador">Desligado</p>
+  <button onclick="alternar('ventilador')">Ligar / Desligar</button>
+</section>
 
-  <section class="cartao">
-    <div class="icone">🌡️</div>
-    <h2>Temperatura</h2>
-    <p class="temperatura"><span id="graus">25</span> °C</p>
-    <button onclick="mudarTemperatura(-1)">− Diminuir</button>
-    <button onclick="mudarTemperatura(1)">+ Aumentar</button>
-    <p class="estado">Temperatura simulada</p>
-  </section>
+<section class="cartao">
+  <div class="icone">🌡️</div>
+  <h2>Temperatura</h2>
+  <p class="temperatura"><span id="graus">25</span> °C</p>
+  <button onclick="mudarTemperatura(-1)">− Diminuir</button>
+  <button onclick="mudarTemperatura(1)">+ Aumentar</button>
+  <p class="estado">Temperatura simulada</p>
+</section>
 
-  <section class="cartao" id="cartaoPorta">
-    <div class="icone">🚪</div>
-    <h2>Porta da casa</h2>
-    <p class="estado" id="estadoPorta">Fechada</p>
-    <button onclick="alternar('porta')">Abrir / Fechar</button>
-  </section>
+<section class="cartao" id="cartaoPorta">
+  <div class="icone">🚪</div>
+  <h2>Porta da casa</h2>
+  <p class="estado" id="estadoPorta">Fechada</p>
+  <button onclick="alternar('porta')">Abrir / Fechar</button>
+</section>
 
-  <section class="cartao" id="cartaoAlarme">
-    <div class="icone">🚨</div>
-    <h2>Alarme</h2>
-    <p class="estado" id="estadoAlarme">Desativado</p>
-    <button onclick="alternar('alarme')">Ativar / Desativar</button>
-  </section>
+<section class="cartao" id="cartaoAlarme">
+  <div class="icone">🚨</div>
+  <h2>Alarme</h2>
+  <p class="estado" id="estadoAlarme">Desativado</p>
+  <button onclick="alternar('alarme')">Ativar / Desativar</button>
+</section>
 
 </main>
 
