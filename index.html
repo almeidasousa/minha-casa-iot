@@ -22,10 +22,32 @@ header {
   text-align: center;
   padding: 25px 10px;
   border-radius: 15px;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
 
 header h1 { margin: 0 0 10px; }
+
+.relogio {
+  max-width: 1000px;
+  margin: 0 auto 22px;
+  padding: 18px;
+  text-align: center;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px #00000012;
+}
+
+#hora {
+  color: #1685d1;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+#data {
+  color: #53728b;
+  margin-bottom: 0;
+  text-transform: capitalize;
+}
 
 .painel {
   display: grid;
@@ -50,7 +72,6 @@ header h1 { margin: 0 0 10px; }
 }
 
 .icone { font-size: 38px; margin-bottom: 10px; }
-
 h2 { font-size: 21px; }
 
 .estado {
@@ -92,6 +113,11 @@ footer {
   <h1>🏡 Minha Casa IoT</h1>
   <p>Painel de controle da casa inteligente</p>
 </header>
+
+<section class="relogio">
+  <div id="hora">--:--:--</div>
+  <p id="data">Carregando data...</p>
+</section>
 
 <main class="painel">
 
@@ -217,7 +243,24 @@ function mudarTemperatura(valor) {
   salvar();
 }
 
+function atualizarRelogio() {
+  const agora = new Date();
+
+  document.getElementById("hora").textContent =
+    agora.toLocaleTimeString("pt-BR");
+
+  document.getElementById("data").textContent =
+    agora.toLocaleDateString("pt-BR", {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric"
+    });
+}
+
 atualizarTela();
+atualizarRelogio();
+setInterval(atualizarRelogio, 1000);
 </script>
 
 </body>
