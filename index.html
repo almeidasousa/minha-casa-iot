@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Casa IoT</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #eef4f8;
+            color: #243447;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #176b87;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            margin: 15px auto;
+            max-width: 350px;
+            border-radius: 15px;
+            box-shadow: 0 3px 10px #0001;
+        }
+
+        button {
+            background: #176b87;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #104e63;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🏡 Minha Casa IoT</h1>
+    <p>Controle inteligente da sua casa</p>
+
+    <div class="card">
+        <h2>💡 Luz da sala</h2>
+        <p id="luz">Desligada</p>
+        <button onclick="alternar('luz')">Ligar / Desligar</button>
+    </div>
+
+    <div class="card">
+        <h2>🌀 Ventilador</h2>
+        <p id="ventilador">Desligado</p>
+        <button onclick="alternar('ventilador')">Ligar / Desligar</button>
+    </div>
+
+    <div class="card">
+        <h2>🌡️ Temperatura</h2>
+        <p>Temperatura simulada: 25 °C</p>
+    </div>
+
+    <div class="card">
+        <h2>🚪 Porta da casa</h2>
+        <p id="porta">Fechada</p>
+        <button onclick="alternar('porta')">Abrir / Fechar</button>
+    </div>
+
+    <script>
+        function alternar(id) {
+            const elemento = document.getElementById(id);
+
+            if (id === 'luz') {
+                elemento.textContent =
+                    elemento.textContent === 'Desligada'
+                    ? 'Ligada' : 'Desligada';
+            } else if (id === 'ventilador') {
+                elemento.textContent =
+                    elemento.textContent === 'Desligado'
+                    ? 'Ligado' : 'Desligado';
+            } else if (id === 'porta') {
+                elemento.textContent =
+                    elemento.textContent === 'Fechada'
+                    ? 'Aberta' : 'Fechada';
+            }
+        }
+    </script>
+
+</body>
+</html>
